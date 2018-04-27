@@ -244,6 +244,9 @@ module EmailAddress
         return false unless self.local.valid?
         return false unless self.host.valid?
       end
+      if !@config[:address_local] && !self.hostname.include?(".")
+        return set_error :incomplete_domain
+      end
       if @config[:address_validation] == :smtp
 
       end
